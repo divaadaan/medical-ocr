@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  medical-ocr-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: medical-ocr-api
+    ports:
+      - "8000:8000"
+    environment:
+      - HF_TOKEN=${HF_TOKEN}
+      - MOONSHOT_API_KEY=${MOONSHOT_API_KEY}
+      - MOONSHOT_API_BASE=${MOONSHOT_API_BASE:-https://api.moonshot.cn/v1}
+      - APP_HOST=0.0.0.0
+      - APP_PORT=8000
+      - DEBUG=${DEBUG:-True}
+      - MAX_UPLOAD_SIZE_MB=${MAX_UPLOAD_SIZE_MB:-10}
+      - OCR_MODEL=${OCR_MODEL:-deepseek-ai/DeepSeek-OCR:novita}
+      - OCR_TIMEOUT=${OCR_TIMEOUT:-300}
+      - LLM_MODEL=${LLM_MODEL:-moonshot-v1-128k}
+      - LLM_TEMPERATURE=${LLM_TEMPERATURE:-0.1}
+      - LLM_MAX_TOKENS=${LLM_MAX_TOKENS:-4096}
+    volumes:
+      # Mount local directories for development
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./app:/app/app
+    restart: unless-stopped
+    networks:
+      - medical-ocr-network
+
+networks:
+  medical-ocr-network:
+    driver: bridge

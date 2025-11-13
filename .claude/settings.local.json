@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:www.cms.gov)",
+      "WebFetch(domain:www.carepatron.com)",
+      "WebFetch(domain:securemedicaidprovider.mt.gov)",
+      "Bash(curl:*)",
+      "Bash(mkdir:*)",
+      "WebFetch(domain:platform.moonshot.ai)",
+      "Bash(data/uploads/.gitkeep)",
+      "Bash(logs/.gitkeep)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
